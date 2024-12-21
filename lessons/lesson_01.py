@@ -75,15 +75,15 @@ print("Hello world!")
 # print(type(c))
 
 # LISTS
-# my_list = list()
+my_list = list()
 # my_list.append("Bob")
 # print(my_list)
 # my_list.append("Alice")
 # print(my_list)
 # my_list.remove("Bob")
 # print(my_list)
-# my_list.insert(0, "Bob")
-# print(my_list)
+my_list.insert(0, "Bob")
+print(my_list)
 # my_list.append("John")
 # print(my_list)
 # # my_list.pop()
@@ -181,7 +181,7 @@ print("Hello world!")
 # print(tuple_with_no_brackets)
 
 # STRINGS
-# my_string = "Hello, World!"
+my_string = "Hello, World!"
 # print(my_string[0])
 # print(my_string[8])
 # # my_string[1] = "a" # TypeError
@@ -189,7 +189,10 @@ print("Hello world!")
 # print(my_string)
 # print(my_string.upper())
 # print(my_string.lower())
-# print(my_string.startswith("Hello"))
+print(my_string.startswith("Hello"))
+string_my = "0123456789"
+print(string_my[:2])
+print(string_my.startswith("01"))
 # my_file = "file.txt"
 # print(my_file.endswith("txt")) # Usefull for checking file extensions
 # print(my_string.replace("H", "J"))

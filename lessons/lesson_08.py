@@ -138,7 +138,7 @@ print(discounted_price)
 discounted_price = apply_discount(500, 20)  # Знижка 20% на ціну 500
 print(discounted_price)
 
-# -- Example 4 - with currying - more complicated function
+# -- Example 4 - with currying - not complicated function
 from typing import Callable
 
 def discount(discount_percentage: int) -> Callable[[float], float]:
