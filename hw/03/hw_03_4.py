@@ -18,7 +18,7 @@ def get_upcoming_birthdays(users):
                 birthday_this_year = birthday_this_year.replace(day=birthday_this_year.day + 2)
             elif weekday == 6:
                 birthday_this_year = birthday_this_year.replace(day=birthday_this_year.day + 1)
-             upcoming_birthdays.append({
+            upcoming_birthdays.append({
                 "name": user["name"],
                 "congratulation_date": birthday_this_year.strftime("%Y.%m.%d")
             })
