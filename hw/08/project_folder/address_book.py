@@ -1,3 +1,4 @@
+import pickle
 from datetime import datetime, timedelta
 from colorama import Fore
 from collections import UserDict
@@ -5,6 +6,19 @@ from .record import Record
 from .fields import *
 
 class AddressBook(UserDict):
+    def load(filename="addressbook.pkl"):
+        try:
+            with open(filename, "rb") as file:
+                return pickle.load(file)
+        except FileNotFoundError:
+            print(Fore.YELLOW + "No saved address book found. Starting with a new one.")
+            return AddressBook()
+
+    def save(self, filename="addressbook.pkl"):
+        with open(filename, "wb") as file:
+            pickle.dump(self, file)
+        print(Fore.GREEN + "Address book saved successfully.")
+
     def add_record(self, record):
         if record.name.value in self.data:
             return Fore.RED + f"Record with name '{record.name.value}' already exists."

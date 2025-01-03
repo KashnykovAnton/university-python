@@ -3,13 +3,14 @@ from datetime import datetime
 from collections import UserDict
 from .address_book import AddressBook
 from .record import Record
+from .command import Command
 from .fields import *
 
 init(autoreset=True)
 
 class Bot:
     def __init__(self):
-        self.address_book = AddressBook()
+        self.address_book = AddressBook.load()
 
     def input_error(func):
         def inner(*args, **kwargs):
@@ -126,28 +127,33 @@ class Bot:
             user_input = input(Fore.BLUE + "Enter a command: ")
             command, args = self.parse_input(user_input)
 
-            if command in ["close", "exit"]:
-                print(Fore.GREEN + "Good bye!")
-                break
-            elif command == "hello":
-                print(Fore.GREEN + "How can I help you?")
-            elif command == "add":
-                print(self.add_contact(args))
-            elif command == "change":
-                print(self.change_contact(args))
-            elif command == "phone":
-                print(self.show_phone(args))
-            elif command == "remove-phone":
-                print(self.remove_phone(args))
-            elif command == "all":
-                print(self.show_all())
-            elif command == "add-birthday":
-                print(self.add_birthday(args))
-            elif command == "show-birthday":
-                print(self.show_contact_birthday(args))
-            elif command == "birthdays":
-                print(self.show_birthdays(args))
-            elif command == "remove":
-                print(self.remove_contact(args))
-            else:
+            try:
+                cmd_enum = Command(command)
+            except ValueError:
                 print(Fore.RED + "Invalid command.")
+                continue
+
+            if cmd_enum in {Command.EXIT, Command.CLOSE}:
+                print(Fore.GREEN + "Good bye!")
+                self.address_book.save()
+                break
+            elif cmd_enum == Command.HELLO:
+                print(Fore.GREEN + "How can I help you?")
+            elif cmd_enum == Command.ADD:
+                print(self.add_contact(args))
+            elif cmd_enum == Command.CHANGE:
+                print(self.change_contact(args))
+            elif cmd_enum == Command.PHONE:
+                print(self.show_phone(args))
+            elif cmd_enum == Command.REMOVE_PHONE:
+                print(self.remove_phone(args))
+            elif cmd_enum == Command.REMOVE:
+                print(self.remove_contact(args))
+            elif cmd_enum == Command.ALL:
+                print(self.show_all())
+            elif cmd_enum == Command.ADD_BIRTHDAY:
+                print(self.add_birthday(args))
+            elif cmd_enum == Command.SHOW_BIRTHDAY:
+                print(self.show_contact_birthday(args))
+            elif cmd_enum == Command.BIRTHDAYS:
+                print(self.show_birthdays(args))
