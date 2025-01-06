@@ -6,6 +6,7 @@ from .record import Record
 from .fields import *
 
 class AddressBook(UserDict):
+    @staticmethod
     def load(filename="addressbook.pkl"):
         try:
             with open(filename, "rb") as file:
