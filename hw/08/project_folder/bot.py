@@ -97,9 +97,10 @@ class Bot:
 
     @input_error
     def show_birthdays(self, args):
-        upcoming_birthdays = self.address_book.get_upcoming_birthdays()
+        days = int(args[0]) if args else 7
+        upcoming_birthdays = self.address_book.get_upcoming_birthdays(days)
         if upcoming_birthdays:
-            result = Fore.CYAN + "Upcoming birthdays:\n"
+            result = Fore.CYAN + f"Upcoming birthdays in {days} days:\n"
             for item in upcoming_birthdays:
                 result += Fore.YELLOW + f"{item['name']}: {item['congratulation_date']}\n"
             return result.strip()
